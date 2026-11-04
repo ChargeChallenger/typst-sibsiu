@@ -1,0 +1,7 @@
+*.pdf
+!Оформление пояснительных записок.pdf
+*.docx
+*.doc
+__pycache__/
+*.pyc
+.DS_Store
