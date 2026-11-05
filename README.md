@@ -6,7 +6,7 @@
 ## Использование
 
 ```typst
-#import "@local/sibsiu:0.2.0": *
+#import "@local/sibsiu:0.1.0": *
 
 #show: sibsiu-work.with(kind: "coursework", title: "...", /* ... */)
 
