@@ -25,7 +25,7 @@
       #text(14pt)[Группа #m.at("group", default: "")]
 
       #v(3cm)
-      #text(14pt)[Новокузнецк, #year]
+      #text(14pt)[#m.at("city", default: "Новокузнецк"), #year]
     ]
   }
 

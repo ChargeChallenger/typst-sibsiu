@@ -2,7 +2,7 @@
 // Всё, что здесь не перечислено, считается внутренним.
 
 // Общие правила оформления (подключаются через `#show:`)
-#import "src/work.typ": sibsiu-work
+#import "src/config.typ": sibsiu-work
 
 // Страницы (вставляются там, где нужны)
 #import "src/pages/titlepage.typ": titlepage

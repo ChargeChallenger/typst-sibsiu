@@ -13,7 +13,7 @@
   show heading.where(numbering: none): set text(size: 16pt, weight: "bold")
   show heading.where(numbering: none): it => {
     pagebreak(weak: true)
-    it.element
+    it
   }
   body
 }

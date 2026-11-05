@@ -1,5 +1,5 @@
-#let unumbered(body) = {
+#let unnumbered(body) = {
   set page(numbering: none)
   body
-  pagebreak(weak: true) 
+  pagebreak(weak: true)
 }

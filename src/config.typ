@@ -10,8 +10,8 @@
 #import "rules/footnotes.typ": sibsiu-footnotes
 
 #let sibsiu-work(
-  title: "Тема работы", 
-  author: "Фамилия И. О.", 
+  title: "Тема работы",
+  author: "Фамилия И. О.",
   group: "Группа",
   work-type: "Пояснительная записка",
   department: "Кафедра ПИТиП",
@@ -19,19 +19,22 @@
   year: datetime.today().year(),
   city: "Новокузнецк",
   ..rest,
-  body
+  body,
 ) = {
   set document(title: title, author: author)
-  meta.update((
-    title: title, 
-    author: author, 
-    group: group,
-    work-type: work-type,
-    department: department,
-    supervisor: supervisor,
-    year: year,
-    city: city
-  ) + rest.named())
+  meta.update(
+    (
+      title: title,
+      author: author,
+      group: group,
+      work-type: work-type,
+      department: department,
+      supervisor: supervisor,
+      year: year,
+      city: city,
+    )
+      + rest.named(),
+  )
   show: sibsiu-text
   show: sibsiu-page
   show: sibsiu-headings
