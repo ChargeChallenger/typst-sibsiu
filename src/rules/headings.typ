@@ -71,19 +71,19 @@
     }
   }
 
-  // 2. Отображение в СОДЕРЖАНИИ (без дублирования и без номеров у структурных)
+  // 2. Отображение в СОДЕРЖАНИИ: у структурных разделов нет номера,
+  // а ВВЕДЕНИЕ, ЗАКЛЮЧЕНИЕ и т. п. печатаются заглавными, как в тексте
   show outline.entry: it => {
-    let is-struct = if it.element.func() == heading {
-      is-struct-heading(it.element)
+    let el = it.element
+    let is-struct = el.func() == heading and is-struct-heading(el)
+
+    if is-struct {
+      let name = lower(get-text(el.body)).trim()
+      let shown = if name in struct-names { upper(it.body()) } else { it.body() }
+      link(el.location(), it.indented(none, shown + [ ] + box(width: 1fr, it.fill) + [ ] + it.page()))
     } else {
-      false
+      link(el.location(), it.indented(it.prefix(), it.inner()))
     }
-
-    // Если раздел структурный (Введение и т.д.) — префикс отсутствует (none),
-    // иначе оставляем стандартный номер (it.prefix())
-    let prefix = if is-struct { none } else { it.prefix() }
-
-    link(it.element.location(), it.indented(prefix, it.inner()))
   }
 
   body

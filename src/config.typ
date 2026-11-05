@@ -1,4 +1,5 @@
 #import "meta.typ": meta
+#import "kinds.typ": resolve-kind
 
 // Правила оформления документа
 #import "rules/text.typ": sibsiu-text
@@ -13,18 +14,24 @@
   title: "Тема работы",
   author: "Фамилия И. О.",
   group: "Группа",
-  kind: "coursework", // coursework, practice, rgr, vkr
+  // coursework, practice, internship, rgr, vkr
+  kind: "coursework",
   discipline: none,
   work-type: "Пояснительная записка",
-  department: "Кафедра ПИТиП",
+  // Полное название кафедры — как в проверенной преподавателем работе
+  department: "Кафедра прикладных информационных технологий и программирования",
   university: "«Сибирский государственный индустриальный университет»",
   supervisor: none,
   tasks: none,
+  // Число (2026 → «2026 г.») или готовая строка
   year: datetime.today().year(),
   city: "Новокузнецк",
   ..rest,
   body,
 ) = {
+  // Неизвестный вид работы — ошибка, а не молчаливая подмена
+  let _ = resolve-kind(kind)
+
   // Безопасное извлечение ФИО автора для метаданных PDF
   let doc-author = if type(author) == dictionary {
     author.at("full", default: author.at("short", default: ""))

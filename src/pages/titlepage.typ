@@ -1,24 +1,6 @@
 #import "../meta.typ": meta
+#import "../kinds.typ": resolve-kind
 #import "parts.typ": institution-header, underlined-field
-
-#let kinds-map = (
-  coursework: (
-    work-type: "КУРСОВОЙ ПРОЕКТ",
-    supervisor-label: "Руководитель курсового проекта:",
-  ),
-  practice: (
-    work-type: "ОТЧЕТ ПО ПРАКТИКЕ",
-    supervisor-label: "Руководитель практики:",
-  ),
-  rgr: (
-    work-type: "РАСЧЕТНО-ГРАФИЧЕСКАЯ РАБОТА",
-    supervisor-label: "Преподаватель:",
-  ),
-  vkr: (
-    work-type: "ВЫПУСКНАЯ КВАЛИФИКАЦИОННАЯ РАБОТА",
-    supervisor-label: "Руководитель ВКР:",
-  ),
-)
 
 #let titlepage(..overrides) = {
   // На титульном листе номер не выводится
@@ -26,11 +8,7 @@
 
   context {
     let m = meta.get() + overrides.named()
-    let kind-key = m.at("kind", default: "coursework")
-    let kind-info = kinds-map.at(kind-key, default: (
-      work-type: upper(m.at("work-type", default: "КУРСОВОЙ ПРОЕКТ")),
-      supervisor-label: "Руководитель:",
-    ))
+    let kind-info = resolve-kind(m.at("kind", default: "coursework"))
 
     let discipline = m.at("discipline", default: none)
     let topic = m.at("title", default: "")
@@ -52,41 +30,43 @@
       ""
     }
 
-    let year = m.at("year", default: datetime.today().year())
+    // Число 2026 печатается как «2026 г.», строка — как есть
+    let year-raw = m.at("year", default: datetime.today().year())
+    let year = if type(year-raw) == int [#year-raw г.] else [#year-raw]
     let city = m.at("city", default: "Новокузнецк")
 
-    set par(first-line-indent: 0pt, leading: 0.85em, justify: false)
+    // Размеры и интервалы титула — как в проверенном оформлении (14 pt)
+    set par(first-line-indent: 0pt, leading: 0.95em, justify: false)
 
     institution-header(
       university: m.at("university", default: "«Сибирский государственный индустриальный университет»"),
       department: m.at("department", default: "Кафедра прикладных информационных технологий и программирования"),
     )
 
-    v(20pt)
+    v(24pt)
 
     align(center)[
-      #text(size: 14pt, weight: "bold")[#kind-info.work-type]
+      #text(weight: "bold")[#kind-info.work-type]
     ]
 
-    v(10pt)
+    v(16pt)
 
     if discipline != none and discipline != "" [
-      #align(center)[#text(size: 13pt)[по дисциплине «#discipline»]]
+      #align(center)[по дисциплине «#discipline»]
     ]
-    align(center)[#text(size: 13pt)[на тему «#topic»]]
+    align(center)[на тему «#topic»]
 
-    v(20pt)
+    v(12pt)
 
     align(right)[
       #block(width: 11.4cm)[
-        #set text(size: 12pt)
         Выполнил:
 
         #v(3pt)
 
         #grid(
           columns: (1fr, 4.8cm),
-          column-gutter: 0.4cm,
+          column-gutter: 0.5cm,
           [Обучающийся группы],
           [#underlined-field(
             value: [#group],
@@ -107,12 +87,11 @@
           )],
         )
 
-        #v(6pt)
         #kind-info.supervisor-label
 
         #align(right)[
           #underlined-field(
-            width: 8.6cm,
+            width: 8.3cm,
             value: [#supervisor-full],
             caption: [(уч. степень, звание, инициалы, фамилия)],
             reserve: 0.01em,
@@ -121,7 +100,7 @@
 
         #align(right)[
           #grid(
-            columns: (2.7cm, 2.7cm, 4.8cm),
+            columns: (2.7cm, 2.7cm, 4.6cm),
             column-gutter: 0.35cm,
             [#underlined-field(caption: [(оценка)])],
             [#underlined-field(caption: [(дата)])],
@@ -131,12 +110,11 @@
       ]
     ]
 
-    place(bottom + center, dy: -5mm)[
+    place(bottom + center, dy: -3mm)[
       #align(center)[
-        #text(size: 12pt)[
-          #city \
-          #year
-        ]
+        #city
+
+        #year
       ]
     ]
   }

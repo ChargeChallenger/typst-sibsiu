@@ -1,6 +1,7 @@
 #let bibliography-page(
   bib-source,
-  outlined: true,
+  // По умолчанию в содержание не попадает — так оформлена проверенная работа
+  outlined: false,
   // По умолчанию используем встроенный в пакет выверенный вузовский CSL
   style: "../csl/gost-r-7-0-5-2008-numeric-indent.csl",
 ) = {

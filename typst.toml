@@ -7,6 +7,9 @@ license = "MIT"
 description = "Шаблон для оформления студенческих работ по стандарту СибГИУ"
 repository = "https://github.com/ChargeChallenger/sibsiu-typst-template"
 compiler = "0.15.0"
+keywords = ["гост", "сибгиу", "курсовой проект", "отчет"]
+categories = ["thesis"]
+disciplines = ["education"]
 
 [template]
 path = "src/template"
