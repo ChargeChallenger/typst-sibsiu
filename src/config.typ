@@ -21,7 +21,7 @@
   ..rest,
   body,
 ) = {
-  set document(title: title, author: author)
+  set document(title: title, author: author.full)
   meta.update(
     (
       title: title,

@@ -1,6 +1,6 @@
 #let sibsiu-text(body) = {
   set text(
-    font: ("Times New Roman", "Liberation Serif"),
+    font: "Times New Roman",
     size: 14pt,
     lang: "ru",
   )
