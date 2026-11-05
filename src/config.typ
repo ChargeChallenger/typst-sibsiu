@@ -13,28 +13,45 @@
   title: "Тема работы",
   author: "Фамилия И. О.",
   group: "Группа",
+  kind: "coursework", // coursework, practice, rgr, vkr
+  discipline: none,
   work-type: "Пояснительная записка",
   department: "Кафедра ПИТиП",
+  university: "«Сибирский государственный индустриальный университет»",
   supervisor: none,
+  tasks: none,
   year: datetime.today().year(),
   city: "Новокузнецк",
   ..rest,
   body,
 ) = {
-  set document(title: title, author: author.full)
+  // Безопасное извлечение ФИО автора для метаданных PDF
+  let doc-author = if type(author) == dictionary {
+    author.at("full", default: author.at("short", default: ""))
+  } else {
+    str(author)
+  }
+
+  set document(title: title, author: doc-author)
+
   meta.update(
     (
       title: title,
       author: author,
       group: group,
+      kind: kind,
+      discipline: discipline,
       work-type: work-type,
       department: department,
+      university: university,
       supervisor: supervisor,
+      tasks: tasks,
       year: year,
       city: city,
     )
       + rest.named(),
   )
+
   show: sibsiu-text
   show: sibsiu-page
   show: sibsiu-headings
@@ -42,5 +59,6 @@
   show: sibsiu-figures
   show: sibsiu-equations
   show: sibsiu-footnotes
+
   body
 }

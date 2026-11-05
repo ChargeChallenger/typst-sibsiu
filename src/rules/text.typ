@@ -7,8 +7,8 @@
 
   set par(
     first-line-indent: (amount: 1.25cm, all: true),
-    leading: 1.07em,
-    spacing: 1.07em,
+    leading: 1em,
+    spacing: 1em,
     justify: true,
   )
 

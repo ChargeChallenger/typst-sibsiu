@@ -9,5 +9,5 @@ repository = "https://github.com/ChargeChallenger/sibsiu-typst-template"
 compiler = "0.15.0"
 
 [template]
-path = "template"
+path = "src/template"
 entrypoint = "main.typ"
